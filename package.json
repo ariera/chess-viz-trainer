@@ -13,6 +13,7 @@
   "dependencies": {
     "@oruga-ui/oruga-next": "^0.8.7",
     "@oruga-ui/theme-bulma": "^0.3.0",
+    "bulma": "^1.0.0",
     "pinia": "^2.1.7",
     "pug": "^3.0.2",
     "vue": "^3.4.21",
