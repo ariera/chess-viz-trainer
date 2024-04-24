@@ -15,7 +15,7 @@ section
     nav.navbar(role="navigation" aria-label="main navigation")
       .navbar-brand
         RouterLink.navbar-item(to="/")
-          img(src="@/assets/chess-viz-trainer-logo-v2.webp" alt="Chess Viz Trainer Logo")
+          img(src="@/assets/chess-viz-trainer-logo-v2-L.jpg" alt="Chess Viz Trainer Logo")
         .navbar-burger(data-target="navbarMenu" @click="toggleMenu" :class="{ 'is-active': isActive }")
           span
           span
