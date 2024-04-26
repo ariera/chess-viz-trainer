@@ -97,13 +97,15 @@ export default {
 </script>
 
 <template lang="pug">
-.container
-  h2 Challenge
-  #challenge
-    p {{ challengeText }}
-    input(type="text" v-model="userInput" placeholder="Enter your answer" @keyup.enter="submitAnswer" ref="answerInput")
-    button(@click="submitAnswer") Submit
-    button(@click="study") Restart
-  ResultsTable(:results="visibleResults")
+
+p {{ challengeText }}
+.field.is-grouped
+  .control
+    input.input(type="text" v-model="userInput" placeholder="Enter your answer" @keyup.enter="submitAnswer" ref="answerInput")
+  .control
+    button.button(@click="submitAnswer") Submit
+  .control
+    button.button(@click="study") Restart
+ResultsTable(:results="visibleResults")
 
 </template>
