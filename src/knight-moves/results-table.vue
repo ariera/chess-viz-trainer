@@ -1,34 +1,33 @@
 <template>
-  <table>
+  <table class="table">
     <thead>
       <tr>
-        <th>Start</th>
-        <th>End</th>
-        <th>Solution Length</th>
-        <th>Answer Length</th>
-        <th>Solution Path</th>
-        <th>Submitted Path</th>
-        <th>Correct?</th>
-        <th>Time Spent</th>
-        <th>Timestamp</th>
+        <th>Challenge</th>
+        <th>Length</th>
+        <th>Path</th>
+        <th colspan="2">Answer</th>
+        <th colspan="2">Timing</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(result, index) in results" :key="index" :class="{ 'correct': result.correct_path, 'incorrect': !result.correct_path }">
-        <td>{{ chessNotation(result.startCoords) }}</td>
-        <td>{{ chessNotation(result.endCoords) }}</td>
+      <tr v-for="(result, index) in results" :key="index">
+        <td>{{ chessNotation(result.startCoords) }} - {{ chessNotation(result.endCoords) }}</td>
         <td>{{ result.solution_length }}</td>
-        <td>{{ result.answer_length }}</td>
         <td v-if="result.solution_path && result.solution_path.length">
           {{ result.solution_path.map(coords => chessNotation(coords)).join(' ') }}
         </td>
-        <td v-if="result.submitted_path && result.submitted_path.length > 0">
+        <td :class="{ 'correct': result.answer_is_correct, 'incorrect': !result.answer_is_correct }">{{ result.answer_length }}</td>
+        <td v-if="result.submitted_path && result.submitted_path.length > 0" :class="{ 'correct': result.answer_is_correct, 'incorrect': !result.answer_is_correct }">
           {{ result.submitted_path.map(coords => chessNotation(coords)).join(' ') }}
         </td>
-        <td v-else>-</td>
-        <td>{{ result.correct_path ? 'Yes' : 'No' }}</td>
-        <td>{{ result.answer_time_spent.toFixed(2) }}</td>
-        <td>{{ formatTimestamp(result.answer_timestamp) }}</td>
+        <td v-else></td>
+        <td colspan="2">
+          <small>
+            {{ result.answer_time_spent.toFixed(0) }} s
+            |
+            {{ formatTimestamp(result.answer_timestamp) }}
+          </small>
+        </td>
       </tr>
     </tbody>
   </table>

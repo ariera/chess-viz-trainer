@@ -40,7 +40,29 @@ export default {
         endCoords: this.endCoords,
         solution_length,
         solution_path,
-        correct_path: false,
+        answer_is_correct: false,
+        answer_length: null,
+        answer_timestamp: null,
+        answer_time_spent: null,
+        submitted_path: []
+      });
+      this.$refs.answerInput.focus();
+    },
+    debug() {
+      this.startTime = new Date().getTime();
+      this.startCoords = [0, 0];
+      this.endCoords = [1, 2];
+      const start_notation = this.chess_notation(this.startCoords);
+      const end_notation = this.chess_notation(this.endCoords);
+      const [solution_length, solution_path] = this.knight_moves(this.startCoords, this.endCoords);
+      this.challengeText = `What is the shortest path length from ${start_notation} to ${end_notation}?`;
+      this.userInput = '';
+      this.results.unshift({
+        startCoords: this.startCoords,
+        endCoords: this.endCoords,
+        solution_length,
+        solution_path,
+        answer_is_correct: false,
         answer_length: null,
         answer_timestamp: null,
         answer_time_spent: null,
@@ -73,9 +95,9 @@ export default {
           this.is_valid_solution(currentResult.submitted_path, this.startCoords, this.endCoords)) ||
         (!isNaN(submittedAnswer) && currentResult.answer_length === currentResult.solution_length)
       ) {
-        currentResult.correct_path = true;
+        currentResult.answer_is_correct = true;
       } else {
-        currentResult.correct_path = false;
+        currentResult.answer_is_correct = false;
       }
 
       // Generate the next study exercise
@@ -106,6 +128,8 @@ p {{ challengeText }}
     button.button(@click="submitAnswer") Submit
   .control
     button.button(@click="study") Restart
+  .control
+    button.button(@click="debug") Debug
 ResultsTable(:results="visibleResults")
 
 </template>
