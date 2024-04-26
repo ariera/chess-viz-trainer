@@ -73,10 +73,11 @@ function next () {
 
   boardAPI.value.clearBoard()
   boardAPI.value.putPiece({ type: "n", color: "w" }, chess_notation(nextChallenge.start_coords))
-  boardAPI.value.setShapes([
-    { orig: chess_notation(nextChallenge.start_coords), brush: 'red'  },
-    { orig: chess_notation(nextChallenge.end_coords)  , brush: 'blue' },
-  ])
+  boardAPI.value.putPiece({ type: "k", color: "b" }, chess_notation(nextChallenge.end_coords))
+  // boardAPI.value.setShapes([
+  //   { orig: chess_notation(nextChallenge.start_coords), brush: 'red'  },
+  //   { orig: chess_notation(nextChallenge.end_coords)  , brush: 'blue' },
+  // ])
 }
 
 function path2shape (path, brush) {
@@ -91,13 +92,15 @@ function onMove (from, to, metadata) {
 
   if (to === chess_notation(currentChallenge.end_coords)) {
     submitPath(answerPath)
-  } else {
-    const startAndEndShapes = [
-      { orig: chess_notation(currentChallenge.start_coords), brush: 'red'  },
-      { orig: chess_notation(currentChallenge.end_coords)  , brush: 'blue' },
-    ]
+  }
+  else {
+    // const startAndEndShapes = [
+    //   { orig: chess_notation(currentChallenge.start_coords), brush: 'red'  },
+    //   { orig: chess_notation(currentChallenge.end_coords)  , brush: 'blue' },
+    // ]
     const traveledPathShapes = path2shape(answerPath, 'thinGrey')
-    boardAPI.value.setShapes(startAndEndShapes.concat(traveledPathShapes))
+    // boardAPI.value.setShapes(startAndEndShapes.concat(traveledPathShapes))
+    boardAPI.value.setShapes(traveledPathShapes)
   }
 }
 
