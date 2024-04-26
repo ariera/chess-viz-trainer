@@ -3,22 +3,21 @@
     <thead>
       <tr>
         <th>Challenge</th>
-        <th>Length</th>
-        <th>Path</th>
-        <th colspan="2">Answer</th>
+        <th colspan="2">Solutoin</th>
+        <th colspan="2">Your Answer</th>
         <th colspan="2">Timing</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="(result, index) in results" :key="index">
-        <td>{{ chessNotation(result.startCoords) }} - {{ chessNotation(result.endCoords) }}</td>
+        <td>{{ chessNotation(result.start_coords) }} - {{ chessNotation(result.end_coords) }}</td>
         <td>{{ result.solution_length }}</td>
         <td v-if="result.solution_path && result.solution_path.length">
           {{ result.solution_path.map(coords => chessNotation(coords)).join(' ') }}
         </td>
         <td :class="{ 'correct': result.answer_is_correct, 'incorrect': !result.answer_is_correct }">{{ result.answer_length }}</td>
-        <td v-if="result.submitted_path && result.submitted_path.length > 0" :class="{ 'correct': result.answer_is_correct, 'incorrect': !result.answer_is_correct }">
-          {{ result.submitted_path.map(coords => chessNotation(coords)).join(' ') }}
+        <td v-if="result.answer_path && result.answer_path.length > 0" :class="{ 'correct': result.answer_is_correct, 'incorrect': !result.answer_is_correct }">
+          {{ result.answer_path.map(coords => chessNotation(coords)).join(' ') }}
         </td>
         <td v-else></td>
         <td colspan="2">

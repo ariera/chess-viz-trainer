@@ -36,15 +36,15 @@ export default {
       this.challengeText = `What is the shortest path length from ${start_notation} to ${end_notation}?`;
       this.userInput = '';
       this.results.unshift({
-        startCoords: this.startCoords,
-        endCoords: this.endCoords,
+        start_coords: this.startCoords,
+        end_coords: this.endCoords,
         solution_length,
         solution_path,
         answer_is_correct: false,
         answer_length: null,
         answer_timestamp: null,
         answer_time_spent: null,
-        submitted_path: []
+        answer_path: []
       });
       this.$refs.answerInput.focus();
     },
@@ -58,15 +58,15 @@ export default {
       this.challengeText = `What is the shortest path length from ${start_notation} to ${end_notation}?`;
       this.userInput = '';
       this.results.unshift({
-        startCoords: this.startCoords,
-        endCoords: this.endCoords,
+        start_coords: this.startCoords,
+        end_coords: this.endCoords,
         solution_length,
         solution_path,
         answer_is_correct: false,
         answer_length: null,
         answer_timestamp: null,
         answer_time_spent: null,
-        submitted_path: []
+        answer_path: []
       });
       this.$refs.answerInput.focus();
     },
@@ -83,7 +83,7 @@ export default {
       } else {
         // If the submitted answer is not an integer, assume it's a path
         currentResult.answer_length = submittedAnswer.split(' ').length - 1;
-        currentResult.submitted_path = this.chess_notation_path_to_coords(submittedAnswer);
+        currentResult.answer_path = this.chess_notation_path_to_coords(submittedAnswer);
       }
 
       currentResult.answer_timestamp = new Date();
@@ -92,7 +92,7 @@ export default {
       // Check if the length of the provided path matches the solution length and the path is valid
       if (
         (currentResult.answer_length === currentResult.solution_length &&
-          this.is_valid_solution(currentResult.submitted_path, this.startCoords, this.endCoords)) ||
+          this.is_valid_solution(currentResult.answer_path, this.startCoords, this.endCoords)) ||
         (!isNaN(submittedAnswer) && currentResult.answer_length === currentResult.solution_length)
       ) {
         currentResult.answer_is_correct = true;
@@ -120,16 +120,20 @@ export default {
 
 <template lang="pug">
 
-p {{ challengeText }}
-.field.is-grouped
-  .control
-    input.input(type="text" v-model="userInput" placeholder="Enter your answer" @keyup.enter="submitAnswer" ref="answerInput")
-  .control
-    button.button(@click="submitAnswer") Submit
-  .control
-    button.button(@click="study") Restart
-  .control
-    button.button(@click="debug") Debug
-ResultsTable(:results="visibleResults")
+.columns
+  .column.is-three-fifths.is-offset-one-fifth
+
+    p {{ challengeText }}
+    .field.is-grouped
+      .control
+        input.input(type="text" v-model="userInput" placeholder="Enter your answer" @keyup.enter="submitAnswer" ref="answerInput")
+      .control
+        button.button(@click="submitAnswer") Submit
+      .control
+        button.button(@click="study") Restart
+      .control
+        button.button(@click="debug") Debug
+    hr
+    ResultsTable(:results="visibleResults")
 
 </template>
