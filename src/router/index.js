@@ -13,7 +13,22 @@ const router = createRouter({
     {
       path: '/knight-moves',
       name: 'knight-moves',
-      component: () => import('../knight-moves/index.vue')
+      redirect: '/knight-moves/easy',
+      component: () => import('../knight-moves/index.vue'),
+      children: [
+        {
+          path: 'easy',
+          component: () => import('../knight-moves/easy.vue')
+        },
+        {
+          path: 'medium',
+          component: () => import('../knight-moves/medium.vue')
+        },
+        {
+          path: 'hard',
+          component: () => import('../knight-moves/hard.vue')
+        },
+      ]
     },
     {
       path: '/checks-n-captures',
