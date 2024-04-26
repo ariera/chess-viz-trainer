@@ -1,4 +1,9 @@
+
+<script setup>
+import KnightMovesBoard from './board.vue';
+</script>
 <template lang="pug">
-.content
-  h1 Easy
+.columns
+  .column.is-three-fifths.is-offset-one-fifth
+    KnightMovesBoard
 </template>

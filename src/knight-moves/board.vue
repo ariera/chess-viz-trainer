@@ -5,11 +5,11 @@
     @board-created="(api) => (boardAPI = api)"
   )
 
-  button(@click="boardConfig.coordinates = !boardConfig.coordinates") Toggle Coordinates
+  button.button(@click="boardConfig.coordinates = !boardConfig.coordinates") Toggle Coordinates
 
-  button(@click="boardAPI.clearBoard()") Clear board
-  button(@click="getSquare()") getSquare
-  button(@click="putPiece()") putPiece
+  button.button(@click="boardAPI.clearBoard()") Clear board
+  button.button(@click="getSquare()") getSquare
+  button.button(@click="putPiece()") putPiece
 
 </template>
 
