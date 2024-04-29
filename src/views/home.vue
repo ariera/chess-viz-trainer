@@ -5,7 +5,7 @@ import KnightMoves from '../knight-moves/index.vue'
 </script>
 
 <template lang="pug">
-.fixed-grid.has-auto-count
+.fixed-grid.has-2-cols-mobile.has-5-cols
   .grid
     .cell
       .card.is-clickable(@click="$router.push('/knight-moves')")
