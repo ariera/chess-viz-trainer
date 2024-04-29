@@ -18,7 +18,7 @@ const router = createRouter({
       children: [
         {
           path: 'easy',
-          component: () => import('../knight-moves/easy.vue')
+          component: () => import('../knight-moves/board.vue')
         },
         {
           path: 'medium',
@@ -26,7 +26,7 @@ const router = createRouter({
         },
         {
           path: 'hard',
-          component: () => import('../knight-moves/hard.vue')
+          component: () => import('../knight-moves/text-only.vue')
         },
       ]
     },
