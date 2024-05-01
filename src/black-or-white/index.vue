@@ -6,9 +6,9 @@
           h2.title.is-1.has-text-centered {{ currentSquare }}
           .chess-tiles
             .chess-tile-wrapper
-              .chess-tile.black-tile(@click="submitGuess('black')") dark
+              .chess-tile.black-tile(@click="submitGuess('black')" aria-label="Guess dark") dark
             .chess-tile-wrapper
-              .chess-tile.white-tile(@click="submitGuess('white')") light
+              .chess-tile.white-tile(@click="submitGuess('white')" aria-label="Guess light") light
 
         .cell.is-col-span-2-mobile
           button.button.is-small.is-rounded(@click="nextSquare") next
