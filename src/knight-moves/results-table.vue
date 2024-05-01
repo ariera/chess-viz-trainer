@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th>Challenge</th>
-        <th colspan="2">Solutoin</th>
+        <th colspan="2">Solution</th>
         <th colspan="2">Your Answer</th>
         <th colspan="2">Timing</th>
       </tr>
