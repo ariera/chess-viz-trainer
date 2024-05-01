@@ -19,7 +19,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, onMounted } from 'vue'
+
 import StopTimer from '@/lib/stop-timer.vue'
 
 const emits = defineEmits(['submitAnswer'])
@@ -52,6 +53,10 @@ function nextSquare() {
   feedback.value = false
   stopTimerRef.value.restart()
 }
+
+onMounted(() => {
+  stopTimerRef.value.start()  // Ensures the timer starts when the component loads
+})
 </script>
 
 <style scoped>
