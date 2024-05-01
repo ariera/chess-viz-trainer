@@ -36,6 +36,11 @@ const router = createRouter({
       component: () => import('../checks-n-captures/index.vue')
     },
     {
+      path: '/black-or-white',
+      name: 'black-or-white',
+      component: () => import('../black-or-white/index.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/about.vue')

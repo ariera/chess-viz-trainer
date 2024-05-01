@@ -24,6 +24,7 @@ section
         .navbar-start
           RouterLink.navbar-item(to="/knight-moves") Knight Moves
           RouterLink.navbar-item(to="/checks-n-captures") Checks & Captures
+          RouterLink.navbar-item(to="/black-or-white") Black or White
         .navbar-end
           RouterLink.navbar-item(to="/about") About
 

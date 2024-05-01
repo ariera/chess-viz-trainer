@@ -25,6 +25,15 @@ import KnightMoves from '../knight-moves/index.vue'
           p.title.is-4 Checks & Captures
           p.subtitle.is-6
 
+    .cell
+      .card.is-clickable(@click="$router.push('/black-or-white')")
+        .card-image
+          figure.image
+            img(src='@/assets/black-or-white.webp' alt='Black or White')
+        .card-content
+          p.title.is-4 Black or White
+          p.subtitle.is-6
+
 </template>
 
 <style scoped>
