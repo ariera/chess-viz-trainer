@@ -10,6 +10,7 @@ const challenge = ref(getCurrentChallenge());
 const knightPlaced = ref(false);
 const kingPlaced = ref(false);
 const answerInput = ref(null);
+const isError = ref(false);  // State to control the flash effect
 const emits = defineEmits(['submitAnswer']);
 
 const boardConfig = ref({
@@ -26,6 +27,9 @@ const boardConfig = ref({
 
 function handleSquareSelect(square) {
   console.log('handleSquareSelect', square)
+
+  if (knightPlaced.value && kingPlaced.value) return;
+
   if (!knightPlaced.value && square === chess_notation(challenge.value.start_coords)) {
     boardAPI.value.putPiece({ type: "n", color: "w" }, square);
     knightPlaced.value = true;
@@ -33,6 +37,10 @@ function handleSquareSelect(square) {
     boardAPI.value.putPiece({ type: "k", color: "b" }, square);
     kingPlaced.value = true;
     answerInput.value.focus();
+  } else {
+    // Trigger the flash effect for a wrong selection
+    isError.value = true;
+    setTimeout(() => isError.value = false, 300);  // Flash red for 300 milliseconds
   }
 }
 
@@ -63,7 +71,7 @@ function next() {
 </script>
 
 <template lang="pug">
-div.knight-moves-study
+div.knight-moves-study(:class="{ 'error-flash': isError }")
   h1.is-size-3.has-text-centered(v-if="challenge") {{ chess_notation(challenge.start_coords) }} - {{ chess_notation(challenge.end_coords) }}
   div.buttons.has-addons.is-centered
       button.button(@click="submitAnswer(1)") 1
@@ -73,3 +81,18 @@ div.knight-moves-study
       button.button(@click="submitAnswer(5)") 5
   TheChessboard(:board-config="boardConfig" @board-created="api => boardAPI = api")
 </template>
+
+<style scoped>
+.error-flash {
+  animation: flashRed .5s;
+}
+
+@keyframes flashRed {
+  from {
+    background-color: red;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+</style>
