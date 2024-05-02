@@ -9,7 +9,6 @@ const boardAPI = ref(null);
 const challenge = ref(getCurrentChallenge());
 const knightPlaced = ref(false);
 const kingPlaced = ref(false);
-const userInput = ref('');
 const answerInput = ref(null);
 const emits = defineEmits(['submitAnswer']);
 
@@ -37,11 +36,8 @@ function handleSquareSelect(square) {
   }
 }
 
-function submitAnswer() {
-  console.log('submitAnswer', userInput.value)
-  if (knightPlaced.value && kingPlaced.value && userInput.value) {
-    emits('submitAnswer', userInput.value.split(' '));  // Emit only the userInput value
-  }
+function submitAnswer(answer) {
+  emits('submitAnswer', [answer])
 }
 
 function showAnswer (currentChallenge, path) {
@@ -62,24 +58,18 @@ function next() {
   challenge.value = getCurrentChallenge();
   knightPlaced.value = false;
   kingPlaced.value = false;
-  userInput.value = '';
   boardAPI.value.clearBoard();
 }
 </script>
 
 <template lang="pug">
 div.knight-moves-study
-  .field.has-addons
-    .control
-      h1.is-size-3.has-text-centered(v-if="challenge") {{ chess_notation(challenge.start_coords) }} - {{ chess_notation(challenge.end_coords) }}
-    .control
-      input.input(type="text" v-model="userInput" placeholder="Enter number of moves" ref="answerInput" @keyup.enter="submitAnswer")
-    .control
-      button.button(@click="submitAnswer" :disabled="!knightPlaced || !kingPlaced") Submit
+  h1.is-size-3.has-text-centered(v-if="challenge") {{ chess_notation(challenge.start_coords) }} - {{ chess_notation(challenge.end_coords) }}
+  div.buttons.has-addons.is-centered
+      button.button(@click="submitAnswer(1)") 1
+      button.button(@click="submitAnswer(2)") 2
+      button.button(@click="submitAnswer(3)") 3
+      button.button(@click="submitAnswer(4)") 4
+      button.button(@click="submitAnswer(5)") 5
   TheChessboard(:board-config="boardConfig" @board-created="api => boardAPI = api")
-  //- button.button.is-small(@click="boardConfig.coordinates = !boardConfig.coordinates" ) coords
 </template>
-
-<style scoped>
-/* Add any specific styles needed */
-</style>
