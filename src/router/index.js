@@ -22,7 +22,7 @@ const router = createRouter({
         },
         {
           path: 'medium',
-          component: () => import('../knight-moves/medium.vue')
+          component: () => import('../knight-moves/place-n-count.vue')
         },
         {
           path: 'hard',
