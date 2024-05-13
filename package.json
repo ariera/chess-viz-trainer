@@ -11,9 +11,11 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mliebelt/pgn-parser": "^1.4.15",
     "@oruga-ui/oruga-next": "^0.8.7",
     "@oruga-ui/theme-bulma": "^0.3.0",
     "bulma": "^1.0.0",
+    "chess.js": "^1.0.0-beta.8",
     "pinia": "^2.1.7",
     "pug": "^3.0.2",
     "vue": "^3.4.21",
