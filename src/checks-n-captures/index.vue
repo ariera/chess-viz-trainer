@@ -205,7 +205,7 @@ function next () {
     .cell.is-col-span-4-mobile
       .field.has-addons
         .control
-          input.input.is-small(type="number" placeholder="Your answer" v-model="answerInput")
+          input.input.is-small(type="number" placeholder="Your answer" inputmode="numeric" v-model="answerInput")
         .control
           button.button.is-small(@click="submitAnswer") Answer
       .content
