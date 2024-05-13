@@ -205,7 +205,7 @@ function next () {
     .cell.is-col-span-4-mobile
       .field.has-addons
         .control
-          input.input.is-small(type="number" placeholder="Your answer" inputmode="numeric" v-model="answerInput")
+          input.input.is-small.no-zoom(type="number" placeholder="Your answer" inputmode="numeric" v-model="answerInput")
         .control
           button.button.is-small(@click="submitAnswer") Answer
       .content
@@ -223,4 +223,7 @@ p Work in Progress...
 </template>
 
 <style scoped>
+.no-zoom {
+  font-size: 16px !important;
+}
 </style>
