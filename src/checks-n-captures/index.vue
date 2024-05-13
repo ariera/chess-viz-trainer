@@ -58,6 +58,7 @@ const currentChallenge = computed( function () {
   const plys = getMovesFrom({ pgn: gamePGN.value, offset: currentMove.value, limit: numberOfMovesPerExercise.value })
   return convertPlysToPGN({plys: plys, offset: currentMove.value})
 })
+const currentChallengeAnswered = ref(false)
 
 // console.log(getPlys(gamePGN.value))
 function getPlys (pgn) {
@@ -112,7 +113,9 @@ function convertPlysToPGN ({plys, offset}) {
 }
 
 
-function submitAnswer (value) {
+function submitAnswer () {
+  if (answerInput.value === null) return
+  currentChallengeAnswered.value = true
   const plys = getMovesFrom({ pgn: gamePGN.value, offset: currentMove.value, limit: numberOfMovesPerExercise.value })
   updateBoardPosition(plys)
   const currentPosition = boardAPI.value.getFen()
@@ -168,54 +171,55 @@ function countChecksAndCaptures (fen) {
 
 function next () {
   currentMove.value = currentMove.value + numberOfMovesPerExercise.value
-
-  // clear paths on the board
-  boardAPI.value.setShapes([])
+  answerInput.value = null
+  currentChallengeAnswered.value = false
+  boardAPI.value.setShapes([]) // clear paths on the board
 }
 
 
 </script>
 
 <template lang="pug">
-.content
-  h1 Checks & Captures
-  p
-    | You are provided with a sequence of moves in standard algebraic notation and a starting board position. Without physically moving the pieces on the board, you must visualize the resulting position after these moves have been played. The challenge then is to identify and count the number of captures and checks available to the player whose turn is next.
-  p Work in Progress...
-
-
-
-
 .fixed-grid.has-4-cols.has-12-cols-mobile
   .grid
-    .cell.is-col-span-3.is-col-span-9-mobile
+    .cell.is-col-span-3.is-col-span-8-mobile
+
       TheChessboard(
         reactive-config
         :board-config="boardConfig"
         @board-created="(api) => (boardAPI = api)"
       )
-      .has-text-centered
-        button.button.is-small(@click="boardConfig.coordinates = !boardConfig.coordinates" ) coords
-
-    .cell.is-col-span-3-mobile
-      div.field.is-horizontal
-        div.field-label.is-small
+      .field.is-horizontal
+        .field-label.is-small
           label.label Difficulty
-        div.field-body
-          div.field
-            div.control
-              div.select.is-small
+        .field-body
+          .field
+            .control
+              .select.is-small
                 select(v-model="numberOfMovesPerExercise")
                   option(v-for="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="n" :value="n") {{ n }}
-      div.field
-        button.button.is-small(@click="next") Next
-      div.field.has-addons
-        div.control
+          .field
+            .control
+              button.button.is-small(@click="boardConfig.coordinates = !boardConfig.coordinates" ) coords
+
+    .cell.is-col-span-4-mobile
+      .field.has-addons
+        .control
           input.input.is-small(type="number" placeholder="Your answer" v-model="answerInput")
-        div.control
-          button.button.is-small(@click="submitAnswer(answerInput)") Answer
+        .control
+          button.button.is-small(@click="submitAnswer") Answer
       .content
         p.is-family-monospace.is-size-7(v-for="(move, index) in currentChallenge" :key="index") {{ move }}
+      .field(v-if="currentChallengeAnswered")
+        button.button.is-small(@click="next") Next
+
+        .content
+h1 Checks & Captures
+p
+  | You are provided with a sequence of moves in standard algebraic notation and a starting board position. Without physically moving the pieces on the board, you must visualize the resulting position after these moves have been played. The challenge then is to identify and count the number of captures and checks available to the player whose turn is next.
+p Work in Progress...
+
+
 </template>
 
 <style scoped>
